@@ -46,15 +46,20 @@ clean:
 	rm -f sfill srm sswap sdmem sdel sdel-lib.o sdel-mod.o core *~
 
 install: all
-	mkdir -p -m 755 ${BINDIR} 2> /dev/null
-	#rm -f sdel && ln -s srm sdel
-	cp -f sdel srm sfill sswap sdmem the_cleaner.sh ${BINDIR}
-	chmod 711 ${BINDIR}/srm ${BINDIR}/sfill ${BINDIR}/sswap ${BINDIR}/sdmem ${BINDIR}/the_cleaner.sh
-	#mkdir -p -m 755 ${MANDIR}/man1 2> /dev/null
-	#cp -f srm.1 sfill.1 sswap.1 smem.1 ${MANDIR}/man1
-	#chmod 644 ${MANDIR}/man1/srm.1 ${MANDIR}/man1/sfill.1 ${MANDIR}/man1/sswap.1 ${MANDIR}/man1/smem.1
-	#mkdir -p -m 755 ${DOCDIR} 2> /dev/null
-	#cp -f CHANGES FILES README secure_delete.doc usenix6-gutmann.doc ${DOCDIR}
+	if [ ! -d "$(DESTDIR)$(BINDIR)" ]; then
+		mkdir -p -m 755 $(DESTDIR)$(BINDIR)
+	fi
+	cp -f sdel srm sfill sswap sdmem the_cleaner.sh $(DESTDIR)$(BINDIR)
+	chmod 711 $(DESTDIR)$(BINDIR)/srm $(DESTDIR)$(BINDIR)/sfill $(DESTDIR)$(BINDIR)/sswap $(DESTDIR)$(BINDIR)/sdmem $(DESTDIR)$(BINDIR)/the_cleaner.sh
+	if [ ! -d "$(DESTDIR)$(MANDIR)" ]; then 
+		mkdir -p -m 755 $(DESTDIR)$(MANDIR)/man1
+	fi
+	cp -f srm.1 sfill.1 sswap.1 smem.1 $(DESTDIR)$(MANDIR)/man1
+	chmod 644 $(DESTDIR)$(MANDIR)/man1/srm.1 $(DESTDIR)$(MANDIR)/man1/sfill.1 $(DESTDIR)$(MANDIR)/man1/sswap.1 $(DESTDIR)$(MANDIR)/man1/smem.1
+	if [ ! -d "$(DESTDIR)$(DOCDIR)" ]; then
+		mkdir -p -m 755 $(DESTDIR)$(DOCDIR)
+	fi
+	cp -f CHANGES FILES README secure_delete.doc usenix6-gutmann.doc $(DESTDIR)$(DOCDIR)
 	#-test -e sdel-mod.o && cp -f sdel-mod.o /lib/modules/`uname -r`/kernel/drivers/char
 #	#@-test '!' -e sdel-mod.o -a `uname -s` = 'Linux' && echo "type \"make sdel-mod install\" to compile and install the Linux loadable kernel module for secure delete"
 
