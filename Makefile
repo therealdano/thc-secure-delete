@@ -42,7 +42,7 @@ sfill: sfill.c
 sswap: sswap.c
 	$(CC) ${OPT} -o sswap sswap.c sdel-lib.o
 	-strip sswap
-sdmem: smem.c
+sdmem: sdmem.c
 	$(CC) ${OPT} -o sdmem smem.c sdel-lib.o
 	-strip sdmem
 
