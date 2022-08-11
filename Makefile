@@ -43,7 +43,7 @@ sswap: sswap.c
 	$(CC) ${OPT} -o sswap sswap.c sdel-lib.o
 	-strip sswap
 sdmem: sdmem.c
-	$(CC) ${OPT} -o sdmem smem.c sdel-lib.o
+	$(CC) ${OPT} -o sdmem sdmem.c sdel-lib.o
 	-strip sdmem
 
 clean:
