@@ -12,7 +12,6 @@ OPT=${CFLAGS} -fstack-protector-strong -fPIC -pie -Wl,-z,relro -Wl,-z,now -D_FIL
 BINDIR=$(PREFIX)/bin
 SHAREDIR=$(PREFIX)/share
 MANDIR=$(SHAREDIR)/man
-DOCDIR=$(SHAREDIR)/doc/secure_delete
 OPT_MOD=-D__KERNEL__ -DMODULE -fomit-frame-pointer -fno-strict-aliasing -pipe -mpreferred-stack-boundary=2
 #LD_MOD=-r
 SECUREFILES=srm sfill sswap sdmem
@@ -66,7 +65,6 @@ install: all
 	if [ ! -d "$(DESTDIR)$(DOCDIR)" ]; then \
 		mkdir -p -m 755 $(DESTDIR)$(DOCDIR); \
 	fi
-	cp -f CHANGES FILES README secure_delete.doc usenix6-gutmann.doc $(DESTDIR)$(DOCDIR)
 	#-test -e sdel-mod.o && cp -f sdel-mod.o /lib/modules/`uname -r`/kernel/drivers/char
 #	#@-test '!' -e sdel-mod.o -a `uname -s` = 'Linux' && echo "type \"make sdel-mod install\" to compile and install the Linux loadable kernel module for secure delete"
 
