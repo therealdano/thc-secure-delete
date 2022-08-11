@@ -3,7 +3,7 @@ GITPROJECT="therealdano/$(PACKAGE).git"
 GITHOST="github.com"
 GITBRANCH="secure-delete"
 GIT=git
-VERSION=3.1.1
+VERSION=3.1.2
 PREFIX=/usr
 CC=gcc
 OPT=${CFLAGS} -fstack-protector-strong -fPIC -pie -Wl,-z,relro -Wl,-z,now -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
