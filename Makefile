@@ -69,7 +69,7 @@ tag:
 
 dist: 
 	DISTTEMP=`mktemp -d -t $(PACKAGE).XXXXXX`;\
-	(cd $${DISTTEMP}; git clone -b "$(GITBRANCH)" git@$(GITLABHOST):$(GITPROJECT) $(PACKAGE)-$(VERSION) || echo 'export failed');\
+	(cd $${DISTTEMP}; git clone -b "$(GITBRANCH)" git@$(GITHOST):$(GITPROJECT) $(PACKAGE)-$(VERSION) || echo 'export failed');\
 	tar -czpf $(PACKAGE)-$(VERSION).tar.gz --exclude=.git --exclude=.svn --exclude=.gitignore --exclude=client -C $${DISTTEMP} .;\
 	rm -rf $${DISTTEMP};\
 	echo "The final archive is $(PACKAGE)-$(VERSION).tar.gz"
