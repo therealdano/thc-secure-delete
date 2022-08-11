@@ -3,6 +3,7 @@ GITPROJECT="therealdano/$(PACKAGE).git"
 GITHOST="github.com"
 GITBRANCH="secure-delete"
 GIT=git
+INSTALL=/usr/bin/install
 VERSION=3.1.2
 PREFIX=/usr
 CC=gcc
@@ -55,14 +56,13 @@ install: all
 	for securefile in $(SECUREFILES); do \
 		$(INSTALL) -m 711 $$securefile $(DESTDIR)$(BINDIR)/$$securefile; \
 	done
+	$(INSTALL) -m 711 $(SECURESCRIPTS) $(DESTDIR)$(BINDIR)/$(SECURESCRIPTSDEST)
 	if [ ! -d "$(DESTDIR)$(MANDIR)" ]; then \
 		mkdir -p -m 755 $(DESTDIR)$(MANDIR)/man1; \
 	fi
 	for manfile in $(SECUREFILES); do \
 		$(INSTALL) -m 644 $${manfile}.1 $(DESTDIR)$(MANDIR)/man1/$${manfile}.1; \
 	done
-	cp -f srm.1 sfill.1 sswap.1 smem.1 $(DESTDIR)$(MANDIR)/man1
-	chmod 644 $(DESTDIR)$(MANDIR)/man1/srm.1 $(DESTDIR)$(MANDIR)/man1/sfill.1 $(DESTDIR)$(MANDIR)/man1/sswap.1 $(DESTDIR)$(MANDIR)/man1/smem.1
 	if [ ! -d "$(DESTDIR)$(DOCDIR)" ]; then \
 		mkdir -p -m 755 $(DESTDIR)$(DOCDIR); \
 	fi
