@@ -14,6 +14,9 @@ MANDIR=$(SHAREDIR)/man
 DOCDIR=$(SHAREDIR)/doc/secure_delete
 OPT_MOD=-D__KERNEL__ -DMODULE -fomit-frame-pointer -fno-strict-aliasing -pipe -mpreferred-stack-boundary=2
 #LD_MOD=-r
+SECUREFILES=srm sfill sswap sdmem
+SECURESCRIPTS=the_cleaner.sh
+SECURESCRIPTSDEST=thecleaner
 
 all: sdel-lib.o srm sfill sswap sdmem
 	@echo
@@ -49,11 +52,15 @@ install: all
 	if [ ! -d "$(DESTDIR)$(BINDIR)" ]; then \
 		mkdir -p -m 755 $(DESTDIR)$(BINDIR); \
 	fi
-	cp -f sdel srm sfill sswap sdmem the_cleaner.sh $(DESTDIR)$(BINDIR)
-	chmod 711 $(DESTDIR)$(BINDIR)/srm $(DESTDIR)$(BINDIR)/sfill $(DESTDIR)$(BINDIR)/sswap $(DESTDIR)$(BINDIR)/sdmem $(DESTDIR)$(BINDIR)/the_cleaner.sh
+	for securefile in $(SECUREFILES); do \
+		$(INSTALL) -m 711 $$securefile $(DESTDIR)$(BINDIR)/$$securefile; \
+	done
 	if [ ! -d "$(DESTDIR)$(MANDIR)" ]; then \
 		mkdir -p -m 755 $(DESTDIR)$(MANDIR)/man1; \
 	fi
+	for manfile in $(SECUREFILES); do \
+		$(INSTALL) -m 644 $${manfile}.1 $(DESTDIR)$(MANDIR)/man1/$${manfile}.1; \
+	done
 	cp -f srm.1 sfill.1 sswap.1 smem.1 $(DESTDIR)$(MANDIR)/man1
 	chmod 644 $(DESTDIR)$(MANDIR)/man1/srm.1 $(DESTDIR)$(MANDIR)/man1/sfill.1 $(DESTDIR)$(MANDIR)/man1/sswap.1 $(DESTDIR)$(MANDIR)/man1/smem.1
 	if [ ! -d "$(DESTDIR)$(DOCDIR)" ]; then \
